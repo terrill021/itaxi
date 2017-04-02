@@ -1,0 +1,35 @@
+<!-- Simple Textfield -->
+<div class="container">
+  <div class="row">
+    <h4 class="col s12">Create trip</h4>
+  </div>
+    
+    <div class="row center-align">
+      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'select start point')"><i class="material-icons left">cloud</i>Set Start Point</a>
+
+      </div>
+
+      <div class="row">
+      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'select end point')"><i class="material-icons right">cloud</i>Set End Point</a>
+    </div>
+      
+
+  <div class="row">     
+       <button class="btn waves-effect waves-light col s6" type="submit" name="action" ng-click="createTrip()">Get An Car
+         <i class="material-icons right">send</i>
+       </button>    
+    </div>  
+  
+  <br />
+  <br />
+  <b>Start point: </b>
+  latitude: {{trip.startPoint.latitudestart}}
+  Longitude: {{trip.startPoint.longitudeestart}}
+  <br />
+  <br />
+  <b>End point: </b>
+  latitude: {{trip.endPoint.latitudeend}}
+  Longitude: {{trip.endPoint.longitudeend}}
+ 
+ 
+</div>

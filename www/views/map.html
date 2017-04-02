@@ -1,0 +1,28 @@
+<!--css-->
+    <style type="text/css">
+        
+        .angular-google-map-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+    </style>
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" control="map.control">
+                    
+                    <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+                    
+                    </ui-gmap-marker>
+
+                </ui-gmap-google-map>
+            <button class="waves-effect waves-teal btn-flat" ng-click="goBack('newTrip', buttonValue)">{{buttonValue}} &nbsp; <i class="zmdi zmdi-mail-send"></i></button>
+
+            </div>
+        </div>
+</div>
