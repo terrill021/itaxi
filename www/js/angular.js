@@ -19,30 +19,7 @@ function sweetAlertService() {
 
     this.custom = function (configObject) {
         swal(configObject);
-    }
-
-    this.search = function(){
-    	swal({   
-            title: "What direction are you looking for?",   
-            text: "Write where you want to go",   
-            type: "input",   
-            showCancelButton: true,   
-            closeOnConfirm: true,   
-            animation: "slide-from-top",   
-            inputPlaceholder: "Write here",
-            confirmButtonText: "Search",
-            cancelButtonText: "Cancel" 
-        }, function(inputValue){
-
-	            if (inputValue === false) return false;      
-	            if (inputValue === "") {
-	            	swal.showInputError("You must write something"); 
-	            	return false;
-	            }
-	            swal("Nice!", "You wrote: " + inputValue, "success"); 
-	            return inputValue;	            
-        	}); 
-    }
+    };
 };
 
 angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-maps', 'ionic'])
@@ -288,7 +265,7 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		        method: 'GET',
 		        cache: false,
 		        headers: {'Content-Type': 'application/json'},
-		        url: 'http://localhost:1337/trips/uncashed/' + '58dd1324aa48b70a043b640c'
+		        url: 'http://localhost:1337/trips/uncashed/' +localStorageService.get('sesion')._id,
 			})
 		        .then(function successCallback(response) {
 		        		angular.copy(response.data.trip, global.uncashedTrip);
