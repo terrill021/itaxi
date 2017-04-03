@@ -20,7 +20,8 @@ $(document).ready(function(){
             MobileMenu.removeClass('Show-menu'); 
         }   
     }); 
-    $('.btn-ExitSystem').on('click', function(e){
+    
+    /*$('.btn-ExitSystem').on('click', function(e){
         e.preventDefault();
         swal({ 
             title: "You want out of the system?",   
@@ -56,7 +57,7 @@ $(document).ready(function(){
             addAddress(inputValue)
             swal("Nice!", "You wrote: " + inputValue, "success"); 
         });    
-    });
+    });*/
     $('.btn-Notification').on('click', function(){
         var NotificationArea=$('.NotificationArea');
         if(NotificationArea.hasClass('NotificationArea-show')){

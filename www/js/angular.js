@@ -1,5 +1,6 @@
 /* Create the sweetAlert Service singleton */
 function sweetAlertService() {
+
     this.success = function(title, message) {
         swal(title, message,'success');
     };
@@ -19,6 +20,29 @@ function sweetAlertService() {
     this.custom = function (configObject) {
         swal(configObject);
     }
+
+    this.search = function(){
+    	swal({   
+            title: "What direction are you looking for?",   
+            text: "Write where you want to go",   
+            type: "input",   
+            showCancelButton: true,   
+            closeOnConfirm: true,   
+            animation: "slide-from-top",   
+            inputPlaceholder: "Write here",
+            confirmButtonText: "Search",
+            cancelButtonText: "Cancel" 
+        }, function(inputValue){
+
+	            if (inputValue === false) return false;      
+	            if (inputValue === "") {
+	            	swal.showInputError("You must write something"); 
+	            	return false;
+	            }
+	            swal("Nice!", "You wrote: " + inputValue, "success"); 
+	            return inputValue;	            
+        	}); 
+    }
 };
 
 angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-maps', 'ionic'])
@@ -34,9 +58,7 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	      // a much nicer keyboard experience.
 	      cordova.plugins.Keyboard.disableScroll(true);
 	    }
-	    if(window.StatusBar) {
-	      StatusBar.styleDefault();
-	    }
+	   
 	  });
 	})
 	.config(function ($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
@@ -58,14 +80,14 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		        controller: 'ctrlTrips'
 		    })
 		    .state('newTrip', {
-		        url: '/trips/newTrip',
+		        url: '/newTrip',
 		        templateUrl: "../views/newtrip.html",
 		        controller: 'ctrlNewTrip'
 		    })
 		    .state('newDriver', {
 		        url: '/trips/createDriver',
 		        templateUrl: "../views/createDriver.html",
-		        controller: 'ctrlNewTrip'
+		        controller: 'ctrlNewDriver'
 		    })
 		    .state('cashTrip', {
 		        url: '/trips/cashTrip',
@@ -80,8 +102,8 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		    .setStorageType('sessionStorage')
 		    .setNotify(true, true);
 	})
-	
-	.factory('global', function ($state, $http, $rootScope, localStorageService) {
+	.service('swal', sweetAlertService)
+	.factory('global', function ($state, $http, $rootScope, localStorageService, swal) {
 	    var global = {};
 	    $rootScope.guardando = false;
 	    global.startPoint = {};
@@ -90,43 +112,74 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	    global.myTrips = new Array();
 	    $rootScope.address = '';
 	    var markerId = 0;
+		$rootScope.drivers = false;
+		$rootScope.clients = false;
+
 
 	    global.buttonValue = "indeterminate";
 
 	    $rootScope.goto = function(to, desc){
+	    	
 	    	global.buttonValue = desc;	    	
 	    	$state.go(to);
 	    }
-	    //Iniciar sesion
-	    global.login = function(){
+	    //Iniciar sesion conductores
+	    global.loginDriver = function(user){
 		        $http({
 		            method: 'post',
 		            cache: false,
 		            headers: {'Content-Type': 'application/json'},
-		            url: 'http://190.242.62.252:3000/app/reservaciones/' + localStorageService.get('sesion').usuario._id
+		            url: 'http://localhost:1337/drivers/session',
+		            data :{
+		            	user : user.user,
+		            	password: user.password
+		            }
 		        })
 		        .then(function successCallback(response) {
 		            console.log(response);
 		            $rootScope.cargando = false;
-          			$rootScope.visible = true;
-              		global.usuario_sesion = {}; //usuario en sesion
-              		localStorageService.set('sesion', response.data);
-              		if(response.data.usuario.tipo == 'Administrador'){
-                		$rootScope.administrador = true;
-            		}
-            		$state.go('map');
-              		global.visible = true; //se puede ver
-
-		            if (response.data.err) {
-		                
-		                
-		            }
-		            else{
-		              
-		          	}
+          			if (response.data.user == null) {
+          				alert('usuario no existe')
+          			} else {
+          				$rootScope.user = response.data.user;
+          				$rootScope.drivers = true;
+          				localStorageService.set('sesion', response.data.user);
+          				alert('driver')
+          				$state.go('cashTrip');
+          			}
 		      }
 		      ,function errorCallback(response) {
 		      //  Materialize.toast("Error Callback", 3000, 'rounded red');
+		    });
+    	};
+
+    	//Iniciar sesion clientes
+	    global.loginClient = function(user){
+		        $http({
+		            method: 'post',
+		            cache: false,
+		            headers: {'Content-Type': 'application/json'},
+		            url: 'http://localhost:1337/clients/session',
+		            data :{
+		            	user : user.user,
+		            	password: user.password
+		            }
+		        })
+		        .then(function successCallback(response) {
+		            console.log(response);
+		            $rootScope.cargando = false;
+          			if (response.data.user == null) {
+          				alert('usuario no existe')
+          			} else {
+          				$rootScope.user = response.data.user;
+          				$rootScope.clients = true;
+          				localStorageService.set('sesion', response.data.user);
+          				alert('client')
+          				$state.go('newTrip');
+          			}
+		      }
+		      ,function errorCallback(response) {
+		      	// Materialize.toast("Error Callback", 3000, 'rounded red');
 		    });
     	};
 
@@ -136,7 +189,7 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		            method: 'GET',
 		            cache: false,
 		            headers: {'Content-Type': 'application/json'},
-		            url: 'http://localhost:1337/trips/' + '58c98631cff3df18c8fee9d5'
+		            url: 'http://localhost:1337/trips/' + localStorageService.get('sesion')._id,
 		        })
 		        .then(function successCallback(response) {
 		            console.log(response);
@@ -163,7 +216,7 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		        method: 'post',
 		        cache: false,
 		        headers: {'Content-Type': 'application/json'},
-		        url: 'http://localhost:1337/trips/' + '58c98631cff3df18c8fee9d5',
+		        url: 'http://localhost:1337/trips/' + localStorageService.get('sesion')._id,
 		        data : {
 		        	longitudestart :trip.startPoint.longitudestart,
 		            latitudestart : trip.startPoint.latitudestart,
@@ -217,6 +270,7 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		           		return false;
 		           } else {
 		           		global.uncashedTrip = {};
+		           		$state.go('cashTrip')
 		           		return true;		           
 		           	}
 		      	}
@@ -295,22 +349,22 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 
     	//Validar que haya unsa sesión activa
     	global.verificateSession = function () {
-	       /* 
-	       console.log('Verficar sesion: '+ localStorageService.get('sesion'));
+	
 	        if (localStorageService.get('sesion') == null)
 	        {
 	            $rootScope.visible = false;
 	            $state.go('login');
 	            return false;
 	        }
-	        if(localStorageService.get('sesion').usuario.tipo == 'Administrador'){
-	            $rootScope.administrador = true;
+	        if(localStorageService.get('sesion').balance == null){
+	            $rootScope.drivers = true;
+	            $rootScope.clients = false;
 	        }else{
-	            $rootScope.administrador = false;
+	            $rootScope.clients = true;
+	            $rootScope.drivers = false;
 	        }
-
 	        $rootScope.visible = true; //se puede ver?
-	        $rootScope.usuario = localStorageService.get('sesion').usuario;*/
+	        $rootScope.user = localStorageService.get('sesion');
 	        return true;	        
     	};
 
@@ -331,7 +385,8 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 
     	function invokeSuccessCallback(successCallback, marker) {
 	        if (typeof successCallback === 'function') {
-	            successCallback(marker);	        }
+	            successCallback(marker);	        
+	        }
     	}
 
     	global.createByCurrentLocation = function (successCallback) {
@@ -362,9 +417,9 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 
 		return global;
 	})
-	.service('swal', sweetAlertService)
+	
 	.controller('ctrlAddDriver', function (localStorageService,$rootScope, $scope, $state, global) {
-	    if(!global.verificateSession()){return;}  
+	  
 
 	    $scope.agregar = function(){
 	        $rootScope.guardando = true;
@@ -372,7 +427,9 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	    }
 	})
 	.controller('ctrlNewTrip', function (localStorageService,$rootScope, $scope, $state, global) {
-	    //if(!global.verificateSession()){return;}  
+	    
+	    if(!global.verificateSession()){return;}  
+	    
 	    $scope.trip = {};
 	    $scope.trip.startPoint = global.startPoint;
 	    $scope.trip.endPoint = global.endPoint;
@@ -384,14 +441,13 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 
 	})	
 	.controller('ctrlTrips', function (localStorageService,$rootScope, $scope, $state, global) {
-	    //if(!global.verificateSession()){return;}  
+	    if(!global.verificateSession()){return;}  
 	    global.getMyTrips();
 	    $scope.myTrips = global.myTrips;
 	    
 	})
 	.controller('ctrlCashTrip', function (localStorageService,$rootScope, $scope, $state, global) {
-	    //if(!global.verificateSession()){return;} 
-
+	    if(!global.verificateSession()){return;} 
 	    global.getUncashedTrip();
 	    $scope.trip = global.uncashedTrip;  
 
@@ -407,15 +463,58 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	})
 	.controller('ctrlLogin', function (localStorageService,$rootScope, $scope, $state, global) {
 	    
-	    
+	    $scope.login = function(){
+	    	$rootScope.guardando = true;
+	    	if ($scope.user.type == 'client') {
+	    		global.loginClient($scope.user);
+	    	}
+	    	 else if ($scope.user.type == 'driver'){
+	    	 	global.loginDriver($scope.user);		
+	    	 }
+	    	 else{
+	    	 	alert('select an user type')
+	    	 }
+	    	
+	    }
 	})
 	.controller('ctrlMenu', function (localStorageService,$rootScope, $scope, $state, global) {
 	    //if(!global.verificateSession()){return;} 
 	    
 	})
 	.controller('ctrlMap', function ($scope, $log, $timeout, $state,$rootScope, global, swal) {
-	   	
-		
+	   if(!global.verificateSession()){return;} 
+
+	   $rootScope.searchDirection = function(){
+	   		var swal = window.swal;
+
+	   		swal({   
+            title: "What direction are you looking for?",   
+            text: "Write where you want to go",   
+            type: "input",   
+            showCancelButton: true,   
+            closeOnConfirm: true,   
+            animation: "slide-from-top",   
+            inputPlaceholder: "Write here",
+            confirmButtonText: "Search",
+            cancelButtonText: "Cancel" 
+        }, function(inputValue){
+
+	            if (inputValue === false) return false;      
+	            if (inputValue === "") {
+	            	swal.showInputError("You must write something"); 
+	            	return false;
+	            }
+	             global.createByAddress(inputValue, function(marker) {
+                	
+        			refresh(marker);
+        			$rootScope.marker.coords.latitude = marker.latitude;
+        			$rootScope.marker.coords.longitude = marker.longitude;
+                });
+	            swal("Nice!", "You wrote: " + inputValue, "success"); 
+	            return inputValue;	            
+        	});
+			
+	   }
 
 	   function refresh(marker) {
             $scope.map.control.refresh({latitude: marker.latitude,
@@ -434,8 +533,6 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
                 });
             }
         };
-
-
 		//generar unas posiciones por defecto en caso de q el gps se tarde o no funcione
 		$rootScope.map = {center: {latitude: 0, longitude: 0}, control: {}, zoom: 15  };
 		$rootScope.marker = {
@@ -490,14 +587,16 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	   
 	   	$scope.buttonValue = global.buttonValue;
 
-	   	$scope.goBack = function(to, value){
+	   	$scope.goBack= function(to, value){
 
-	   		if (value == "select start point") {
+	   		alert(to + value)
+
+	   		if (value == "set start point") {
 	   			
 	   			global.startPoint.latitudestart = $scope.actualLatitude;
 	   			global.startPoint.longitudeestart = $scope.actualLongitude;
 	   		}
-			if (value == "select end point") {
+			if (value == "set end point") {
 	   			global.endPoint.latitudeend =  $scope.actualLatitude;
 	   			global.endPoint.longitudeend = $scope.actualLongitude;
 	   		}

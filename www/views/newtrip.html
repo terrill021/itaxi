@@ -1,16 +1,18 @@
 <!-- Simple Textfield -->
 <div class="container">
+<div class="container">
+<div class="container">
   <div class="row">
     <h4 class="col s12">Create trip</h4>
   </div>
     
     <div class="row center-align">
-      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'select start point')"><i class="material-icons left">cloud</i>Set Start Point</a>
-
-      </div>
+      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'set start point')"><i class="left"><img src="assets/img/flag.png" class="responsive-img center-box"></i>Set Start Point</a>
+    </div>
 
       <div class="row">
-      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'select end point')"><i class="material-icons right">cloud</i>Set End Point</a>
+        <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'set end point')"><i class="right"><img src="assets/img/flag.png" class="responsive-img center-box">
+        </i>Set End Point</a>
     </div>
       
 
@@ -22,14 +24,25 @@
   
   <br />
   <br />
-  <b>Start point: </b>
-  latitude: {{trip.startPoint.latitudestart}}
-  Longitude: {{trip.startPoint.longitudeestart}}
-  <br />
-  <br />
-  <b>End point: </b>
-  latitude: {{trip.endPoint.latitudeend}}
-  Longitude: {{trip.endPoint.longitudeend}}
- 
- 
+  <div class="row">
+    
+  
+  <div class="row">
+  <b class="col s12">Start point: </b>
+  </div>
+  <div class="row">
+  
+  </div>
+
+  <div class="row">
+  <b class="col s12">End point: </b>
+  </div>
+  <div class="row">
+
+  </div>
+
+  </div>
+ </div>
+ </div>
 </div>
+

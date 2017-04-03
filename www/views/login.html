@@ -1,18 +1,29 @@
 <div class="container-login center-align">
-        <div style="margin:15px 0;">
+        
+        <div>
             <i class="zmdi zmdi-account-circle zmdi-hc-5x"></i>
-            <p>Inicia sesión con tu cuenta</p>   
+            <p>Start an Session With Your Account</p>   
         </div>
-        <form action="">
+        <form>
             <div class="input-field">
-                <input id="UserName" type="text" class="validate">
-                <label for="UserName"><i class="zmdi zmdi-account"></i>&nbsp; Nombre</label>
+                <input id="UserName" type="text" class="validate" ng-model="user.user">
+                <label for="UserName"><i class="zmdi zmdi-account"></i>&nbsp; User</label>
             </div>
             <div class="input-field col s12">
-                <input id="Password" type="password" class="validate">
-                <label for="Password"><i class="zmdi zmdi-lock"></i>&nbsp; Contraseña</label>
+                <input id="Password" type="password" class="validate" ng-model="user.password">
+                <label for="Password"><i class="zmdi zmdi-lock"></i>&nbsp; Password</label>
             </div>
-            <button class="waves-effect waves-teal btn-flat">Ingresar &nbsp; <i class="zmdi zmdi-mail-send"></i></button>
+            <div class="row">
+                <p>
+                  <input name="group1" type="radio" ng-model="user.type" id="test1" value="driver" />
+                  <label for="test1" >Driver</label>
+                </p>
+                <p>
+                  <input name="group1" type="radio" id="test2" ng-model="user.type" value="client"/>
+                  <label for="test2">Client</label>
+                </p>
+            </div>
+            <button class="waves-effect waves-teal btn-flat" ng-click="login()">Ingresar &nbsp; <i class="zmdi zmdi-mail-send"></i></button>
         </form>
         <div class="divider" style="margin: 20px 0;"></div>
         <a href="home.html">Crear cuenta</a>
