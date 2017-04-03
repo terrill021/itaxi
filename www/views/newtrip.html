@@ -28,21 +28,20 @@
     
   
   <div class="row">
-  <b class="col s12">Start point: </b>
-  </div>
+  <b class="col s12">Start point: (* required)</b>
+  </div><!--  -->
   <div class="row">
-  
+    <img ng-show="!(validateEmpty(trip.startPoint))" src="assets/img/Ok-icon.png" class="responsive-img center-box">
   </div>
 
   <div class="row">
-  <b class="col s12">End point: </b>
+  <b class="col s12">End point: (optional) </b>
   </div>
   <div class="row">
-
+    <img ng-show="(!validateEmpty(trip.endPoint))" src="assets/img/Ok-icon.png" class="responsive-img center-box">
   </div>
 
   </div>
  </div>
  </div>
 </div>
-

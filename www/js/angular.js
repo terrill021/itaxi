@@ -118,6 +118,8 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 
 	    global.buttonValue = "indeterminate";
 
+
+
 	    $rootScope.goto = function(to, desc){
 	    	
 	    	global.buttonValue = desc;	    	
@@ -139,12 +141,12 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		            console.log(response);
 		            $rootScope.cargando = false;
           			if (response.data.user == null) {
-          				alert('usuario no existe')
+          				swal.warning("Message", "user not found")
           			} else {
           				$rootScope.user = response.data.user;
           				$rootScope.drivers = true;
           				localStorageService.set('sesion', response.data.user);
-          				alert('driver')
+          				swal.success("Welcome", "press ok to close")
           				$state.go('cashTrip');
           			}
 		      }
@@ -169,12 +171,13 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		            console.log(response);
 		            $rootScope.cargando = false;
           			if (response.data.user == null) {
-          				alert('usuario no existe')
+          				swal.warning("Message", "user not found")
+
           			} else {
           				$rootScope.user = response.data.user;
           				$rootScope.clients = true;
           				localStorageService.set('sesion', response.data.user);
-          				alert('client')
+          				swal.success("Welcome", "press ok to close")
           				$state.go('newTrip');
           			}
 		      }
@@ -368,10 +371,12 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	        return true;	        
     	};
 
-    	global.cerrarSesion = function(){
+    	$rootScope.closeSession = function(){
+    		$rootScope.drivers = false;
+			 $rootScope.clients = false;
 		     $rootScope.visible = false;
 		     localStorageService.remove('sesion');
-		     $state.go('login');
+		     $state.go('login');		     
 		};
 
 		function create(latitude, longitude) {
@@ -439,6 +444,10 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	        global.newTrip($scope.trip);
 	    };
 
+	    $scope.validateEmpty = function(obj){
+	 	   return jQuery.isEmptyObject(obj);
+		}
+
 	})	
 	.controller('ctrlTrips', function (localStorageService,$rootScope, $scope, $state, global) {
 	    if(!global.verificateSession()){return;}  
@@ -492,7 +501,7 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
             text: "Write where you want to go",   
             type: "input",   
             showCancelButton: true,   
-            closeOnConfirm: true,   
+            closeOnConfirm: false,   
             animation: "slide-from-top",   
             inputPlaceholder: "Write here",
             confirmButtonText: "Search",
@@ -573,8 +582,7 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 		    $scope.dynamicMoveCtr = 0;
 		    
 		    $rootScope.marker.coords.latitude = $scope.actualLatitude;
-		    $rootScope.marker.coords.longitude = $scope.actualLongitude;
-	   
+		    $rootScope.marker.coords.longitude = $scope.actualLongitude;	   
 		}
 
 		geolocationError = function(){
@@ -588,8 +596,6 @@ angular.module('appAngular', ['ui.router','LocalStorageModule', 'uiGmapgoogle-ma
 	   	$scope.buttonValue = global.buttonValue;
 
 	   	$scope.goBack= function(to, value){
-
-	   		alert(to + value)
 
 	   		if (value == "set start point") {
 	   			
