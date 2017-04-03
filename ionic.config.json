@@ -1,4 +1,6 @@
 {
   "name": "Itaxi5",
-  "app_id": ""
+  "app_id": "2.0",
+  "typescript": false,
+  "v2": false
 }
