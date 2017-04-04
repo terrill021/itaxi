@@ -22,7 +22,7 @@ function sweetAlertService() {
     };
 };
 
-angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageModule', 'uiGmapgoogle-maps'])
+angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageModule', 'uiGmapgoogle-maps', 'ionic.cloud'])
 	
 	.config(function ($stateProvider, $urlRouterProvider, localStorageServiceProvider, $ionicCloudProvider) {
 		
@@ -68,6 +68,18 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 		    $ionicCloudProvider.init({
 			    "core": {
 			      "app_id": "9c8249b8"
+			    },
+			    "push": {
+			     "sender_id": "347412374609",
+			     "pluginConfig": {
+			        "ios": {
+			          "badge": true,
+			          "sound": true
+			        },
+			        "android": {
+			          "iconColor": "#343434"
+			        }
+			      }
 			    }
 			 });
 	})
@@ -89,7 +101,7 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 		});
 	})
 	.service('swal', sweetAlertService)
-	.factory('global', function ($state, $http, $rootScope, localStorageService, swal) {
+	.factory('global', function ( $state, $http, $rootScope, localStorageService, swal, $ionicPush) {
 	    var global = {};
 	    $rootScope.guardando = false;
 	    global.startPoint = {};
@@ -103,6 +115,8 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 
 
 	    global.buttonValue = "indeterminate";
+
+	   
 
 	    function errorCallback (){
     		$.toast({
@@ -144,12 +158,12 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
           				$rootScope.user = response.data.user;
           				$rootScope.drivers = true;
           				localStorageService.set('sesion', response.data.user);
-          				swal.success("Welcome", "press ok to close")
+          				swal.success("Welcome", "Press 'OK' to close");
           				$state.go('cashTrip');
           			}
 		      }
 		      ,function errorCallback(response) {
-		      //  Materialize.toast("Error Callback", 3000, 'rounded red');
+		      	errorCallback();
 		    });
     	};
 
@@ -175,6 +189,16 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
           				$rootScope.user = response.data.user;
           				$rootScope.clients = true;
           				localStorageService.set('sesion', response.data.user);
+
+          				//Registrar token
+          				$ionicPush.register().then(function(t) {
+						  return $ionicPush.saveToken(t);
+						}).then(function(t) {
+							alert(t.token)
+						  console.log('Token saved:', t.token);
+						  
+						});
+          				
           				swal.success("Welcome", "press ok to close")
           				$state.go('newTrip');
           			}
@@ -435,6 +459,11 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 	    
 	    if(!global.verificateSession()){return;}  
 	    
+	    $scope.$on('cloud:push:notification', function(event, data) {
+		var msg = data.message;
+		  alert(msg.title + ': ' + msg.text);
+		});
+
 	    $scope.trip = {};
 	    $scope.trip.startPoint = global.startPoint;
 	    $scope.trip.endPoint = global.endPoint;
@@ -469,9 +498,16 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 	    	global.cashTrip(trip);
 	    };
 
+	    $scope.$on('cloud:push:notification', function(event, data) {
+		  var msg = data.message;
+		  alert(msg.title + ': ' + msg.text);
+		});
+
 	})
-	.controller('ctrlLogin', function (localStorageService,$rootScope, $scope, $state, global) {
+	.controller('ctrlLogin', function (localStorageService, $rootScope, $scope, $state, global, swal) {
 	    
+	    alert('login ctl')
+
 	    $scope.login = function(){
 	    	$rootScope.guardando = true;
 	    	if ($scope.user.type == 'client') {
@@ -481,13 +517,14 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 	    	 	global.loginDriver($scope.user);		
 	    	 }
 	    	 else{
-	    	 	alert('select an user type')
+	    	 	swal.warning('Warning', 'Select an user type');
 	    	 }
 	    	
 	    }
 	})
 	.controller('ctrlMenu', function (localStorageService,$rootScope, $scope, $state, global) {
 	    //if(!global.verificateSession()){return;} 
+	    alert('menu ctl')
 	    
 	})
 	.controller('ctrlMap', function ($scope, $log, $timeout, $state,$rootScope, global, swal) {
@@ -497,13 +534,13 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 	   		var swal = window.swal;
 
 	   		swal({   
-            title: "What direction are you looking for?",   
+            title: "What address are you looking for?",   
             text: "Write where you want to go",   
             type: "input",   
             showCancelButton: true,   
             closeOnConfirm: false,   
             animation: "slide-from-top",   
-            inputPlaceholder: "Write here",
+            inputPlaceholder: "523 South Irving StBuilding 3 Springfield, MA 01234",
             confirmButtonText: "Search",
             cancelButtonText: "Cancel" 
         }, function(inputValue){
@@ -586,7 +623,7 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 		}
 
 		geolocationError = function(){
-			alert('geolocation undefined');
+			swal.warning("Warning" ,'geolocation undefined');
 		};
 
 		
@@ -597,12 +634,12 @@ angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageMo
 
 	   	$scope.goBack= function(to, value){
 
-	   		if (value == "set start point") {
+	   		if (value == "pick up location") {
 	   			
 	   			global.startPoint.latitudestart = $scope.actualLatitude;
 	   			global.startPoint.longitudeestart = $scope.actualLongitude;
 	   		}
-			if (value == "set end point") {
+			if (value == "destination") {
 	   			global.endPoint.latitudeend =  $scope.actualLatitude;
 	   			global.endPoint.longitudeend = $scope.actualLongitude;
 	   		}

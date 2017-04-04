@@ -1,13 +1,12 @@
-<div class="container-login center-align">
-        
+<div class="container-login center-align">        
         <div>
             <i class="zmdi zmdi-account-circle zmdi-hc-5x"></i>
-            <p>Start an Session With Your Account</p>   
+            <p>Log in</p>   
         </div>
         <form>
             <div class="input-field">
                 <input id="UserName" type="text" class="validate" ng-model="user.user">
-                <label for="UserName"><i class="zmdi zmdi-account"></i>&nbsp; User</label>
+                <label for="UserName"><i class="zmdi zmdi-account"></i>&nbsp; User name</label>
             </div>
             <div class="input-field col s12">
                 <input id="Password" type="password" class="validate" ng-model="user.password">
@@ -20,11 +19,11 @@
                 </p>
                 <p>
                   <input name="group1" type="radio" id="test2" ng-model="user.type" value="client"/>
-                  <label for="test2">Client</label>
+                  <label for="test2">Customer</label>
                 </p>
             </div>
-            <button class="waves-effect waves-teal btn-flat" ng-click="login()">Ingresar &nbsp; <i class="zmdi zmdi-mail-send"></i></button>
+            <button class="waves-effect waves-teal btn-flat" ng-click="login()">Log in &nbsp; <i class="zmdi zmdi-mail-send"></i></button>
         </form>
         <div class="divider" style="margin: 20px 0;"></div>
-        <a href="home.html">Crear cuenta</a>
+        <a href="home.html">Create an account</a>
     </div>

@@ -3,21 +3,20 @@
 <div class="container">
 <div class="container">
   <div class="row">
-    <h4 class="col s12">Create trip</h4>
+    <h4 class="col s12">Request a ride</h4>
   </div>
     
     <div class="row center-align">
-      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'set start point')"><i class="left"><img src="assets/img/flag.png" class="responsive-img center-box"></i>Set Start Point</a>
+      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'pick up location')"><i class="left"><img src="assets/img/flag.png" class="responsive-img"></i>pick up location</a>
     </div>
 
       <div class="row">
-        <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'set end point')"><i class="right"><img src="assets/img/flag.png" class="responsive-img center-box">
-        </i>Set End Point</a>
+        <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'destination')"><i class="right"><img src="assets/img/flag.png" class="responsive-img">
+        </i>destination</a>
     </div>
       
-
   <div class="row">     
-       <button class="btn waves-effect waves-light col s6" type="submit" name="action" ng-click="createTrip()">Get An Car
+       <button class="btn waves-effect waves-light col s6" type="submit" name="action" ng-click="createTrip()">Get A Car
          <i class="material-icons right">send</i>
        </button>    
     </div>  
@@ -28,14 +27,14 @@
     
   
   <div class="row">
-  <b class="col s12">Start point: (* required)</b>
+  <b class="col s12">Pick up location: (*required)</b>
   </div><!--  -->
   <div class="row">
     <img ng-show="!(validateEmpty(trip.startPoint))" src="assets/img/Ok-icon.png" class="responsive-img center-box">
   </div>
 
   <div class="row">
-  <b class="col s12">End point: (optional) </b>
+  <b class="col s12">Destination: (optional) </b>
   </div>
   <div class="row">
     <img ng-show="(!validateEmpty(trip.endPoint))" src="assets/img/Ok-icon.png" class="responsive-img center-box">
@@ -45,3 +44,4 @@
  </div>
  </div>
 </div>
+{{trip}}
