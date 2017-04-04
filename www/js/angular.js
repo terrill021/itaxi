@@ -22,25 +22,9 @@ function sweetAlertService() {
     };
 };
 
-angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapgoogle-maps'])
-	.run(function($ionicPlatform) {
-		  $ionicPlatform.ready(function() {
-		    if(window.cordova && window.cordova.plugins.Keyboard) {
-		      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-		      // for form inputs)
-		      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-		      // Don't remove this line unless you know what you are doing. It stops the viewport
-		      // from snapping when text inputs are focused. Ionic handles this internally for
-		      // a much nicer keyboard experience.
-		      cordova.plugins.Keyboard.disableScroll(true);
-		    }
-		    if(window.StatusBar) {
-		      StatusBar.styleDefault();
-		    }
-		  });
-		})
-	.config(function ($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
+angular.module('appAngular', ['ionic','ionic.cloud', 'ui.router','LocalStorageModule', 'uiGmapgoogle-maps'])
+	
+	.config(function ($stateProvider, $urlRouterProvider, localStorageServiceProvider, $ionicCloudProvider) {
 		
 		$stateProvider
 		    .state('map', {
@@ -80,6 +64,29 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 		    .setPrefix('myApp')
 		    .setStorageType('sessionStorage')
 		    .setNotify(true, true);
+
+		    $ionicCloudProvider.init({
+			    "core": {
+			      "app_id": "9c8249b8"
+			    }
+			 });
+	})
+	.run(function($ionicPlatform) {
+		  $ionicPlatform.ready(function() {
+		    if(window.cordova && window.cordova.plugins.Keyboard) {
+		      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+		      // for form inputs)
+		      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+		      // Don't remove this line unless you know what you are doing. It stops the viewport
+		      // from snapping when text inputs are focused. Ionic handles this internally for
+		      // a much nicer keyboard experience.
+		      cordova.plugins.Keyboard.disableScroll(true);
+		    }
+		    if(window.StatusBar) {
+		      StatusBar.styleDefault();
+		    }
+		});
 	})
 	.service('swal', sweetAlertService)
 	.factory('global', function ($state, $http, $rootScope, localStorageService, swal) {
@@ -97,7 +104,19 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 
 	    global.buttonValue = "indeterminate";
 
-
+	    function errorCallback (){
+    		$.toast({
+					    heading: 'Error',
+					    text: "whit out server response",
+					    icon: 'error',
+						position: 'bottom-center',
+						showHideTransition: 'slide',
+						bgColor : '#ff0000',
+					    loader: true,        // Change it to false to disable loader
+					    textColor : 'white',
+					    loaderBg: '#c60000'  // To change the background
+						});
+    	}
 
 	    $rootScope.goto = function(to, desc){
 	    	
@@ -161,7 +180,7 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
           			}
 		      }
 		      ,function errorCallback(response) {
-		      	// Materialize.toast("Error Callback", 3000, 'rounded red');
+		      	errorCallback();
 		    });
     	};
 
@@ -189,6 +208,7 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 						});		            
 		      	}
 		      	,function errorCallback(response) {
+		      		errorCallback();
 		    });
     	};
 
@@ -220,10 +240,10 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 						});
 		      	}
 		      	,function errorCallback(response) {
-		        //Materialize.toast("Error Callback", 3000, 'rounded red');
+		        	errorCallback();
 		    });
     	};
-
+    	
     	//Cobrar un  viaje (Conductor)
     	global.cashTrip = function(trip){
 		    $http({
@@ -257,7 +277,7 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 		           	}
 		      	}
 		      	,function errorCallback(response) {
-		       
+		       		errorCallback();
 		    });
     	};
 
@@ -286,11 +306,11 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 		        		
 		      	}
 		      	,function errorCallback(response) {
-		        alert("Error Callback")
+		        	errorCallback();
 		    });
     	};
 
-		//Agregar conductor
+		//Agregar conductor (es nesesario??)
 		global.addDriver = function(driver){
     		http({
 		            method: 'post',
@@ -336,6 +356,7 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 	        {
 	            $rootScope.visible = false;
 	            $state.go('login');
+	            swal.warning("Warning", "you should start an session");
 	            return false;
 	        }
 	        if(localStorageService.get('sesion').balance == null){
@@ -380,7 +401,7 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 	                invokeSuccessCallback(successCallback, marker);
 	            });
 	        } else {
-	            alert('Unable to locate current position');
+	            errorCallback();
 	        }
     	}
 
@@ -394,7 +415,7 @@ angular.module('appAngular', ['ionic','ui.router','LocalStorageModule', 'uiGmapg
 	                var marker = create(latitude, longitude);
 	                invokeSuccessCallback(successCallback, marker);
 	            } else {
-	                alert("Unknown address: " + address);
+	                swal.warning("Unknown address", address);
 	            }
 	        });
     	}
