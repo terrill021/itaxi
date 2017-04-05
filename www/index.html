@@ -2,13 +2,16 @@
 <html ng-app="appAngular">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <link rel="manifest" href="manifest.json">
 
+
     <title>Itaxi</title>   
     <!-- js de la app-->
-    <script src="js/jquery-3.2.0.min.js"></script>
-    <script src="js/angular.min.js"></script>
+    <script src="js/jquery-2.2.0.min.js"></script>
+   <!-- <script src="js/angular.min.js"></script> -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="js/angular-ui-router.js"></script>  
     <script src="js/itaxi.factory.js"></script>  
     <script src="js/itaxi.services.js"></script>
@@ -28,9 +31,9 @@
     <!-- Materialize JS -->
     <script src="js/materialize.min.js"></script>
     
-    <!-- Malihu jQuery custom content scroller JS -->
+    <!-- Malihu jQuery custom content scroller JS 
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    
+    -->
     <!-- MaterialDark JS -->
     <script src="js/main.js"></script>
     <!-- -->
@@ -55,15 +58,11 @@
     <!-- Sweet Alert JS --> 
     <script src="js/sweetalert.min.js"></script>
 
-    <!-- your app's js -->
-    <script src="js/angular.js"></script>
-
     <link href="http://fonts.googleapis.com/icon?family=Material%20Icons" rel="stylesheet">
 
     <script src="lib/bluebird.min.js"></script>
 
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic.cloud.min.js"></script>
     <script src="cordova.js"></script>
     <script src="lib/ionic-native/ionic.native.js"></script>
@@ -209,16 +208,12 @@
              
         </section>
         
-
         <!-- Your code here -->
         <div class="container center-align" style="margin-bottom: 128px;">
-               
-               
                     <ui-view></ui-view>
-                  
-           
          </div>
         <!-- Your code here -->
 
-  </section></body>
+  </section>
+  </body>
 </html>

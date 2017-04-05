@@ -69,7 +69,7 @@ $(document).ready(function(){
 });
 (function($){
     $(window).load(function(){
-        $(".NavLateral-content").mCustomScrollbar({
+        /*$(".NavLateral-content").mCustomScrollbar({
             theme:"light-thin",
             scrollbarPosition: "inside",
             autoHideScrollbar: true,
@@ -80,6 +80,6 @@ $(document).ready(function(){
             scrollbarPosition: "inside",
             autoHideScrollbar: true,
             scrollButtons:{ enable: true }
-        });
+        });*/
     });
 })(jQuery);
