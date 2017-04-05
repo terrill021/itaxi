@@ -1,7 +1,7 @@
 {
   "name": "itaxi",
   "short_name": "itaxi",
-  "start_url": "index.html",
+  "start_url": "www/index.html",
   "display": "standalone",
   "icons": [{
     "src": "icon.png",
