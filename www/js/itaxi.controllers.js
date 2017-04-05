@@ -60,8 +60,6 @@ angular.module('itaxi.controllers', [])
 	})
 	.controller('ctrlLogin', function (localStorageService, $rootScope, $scope, $state, global, swal) {
 	    
-	    alert('login ctl')
-
 	    $scope.login = function(){
 	    	$rootScope.guardando = true;
 	    	if ($scope.user.type == 'client') {
