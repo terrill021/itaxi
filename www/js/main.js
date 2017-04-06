@@ -20,16 +20,7 @@ $(document).ready(function(){
             MobileMenu.removeClass('Show-menu'); 
         }   
     }); 
-    
-    
-    $('.btn-Notification').on('click', function(){
-        var NotificationArea=$('.NotificationArea');
-        if(NotificationArea.hasClass('NotificationArea-show')){
-            NotificationArea.removeClass('NotificationArea-show');
-        }else{
-            NotificationArea.addClass('NotificationArea-show');
-        }
-    });     
+         
 });
 (function($){
     /*$(window).load(function(){

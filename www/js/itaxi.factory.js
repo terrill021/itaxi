@@ -92,11 +92,10 @@ angular.module('itaxi.factory', [])
 
           				//Registrar token
           				$ionicPush.register().then(function(t) {
+          					swal.success("token", t.token);
 						  return $ionicPush.saveToken(t);
 						}).then(function(t) {
 							alert(t.token)
-						  console.log('Token saved:', t.token);
-						  
 						});
           				
           				swal.success("Welcome", "press ok to close")
