@@ -1,3 +1,7 @@
+var ip = '52.14.211.10';
+var port = '1337';
+
+
 angular.module('itaxi.factory', [])
 
 .factory('global', function ( $state, $http, $rootScope, localStorageService, swal, $ionicPush) {
@@ -39,7 +43,7 @@ angular.module('itaxi.factory', [])
 		            method: 'post',
 		            cache: false,
 		            headers: {'Content-Type': 'application/json'},
-		            url: 'http://localhost:1337/drivers/session',
+		            url: 'http://' + ip + ':' + port + '/drivers/session',
 		            data :{
 		            	user : user.user,
 		            	password: user.password
@@ -69,7 +73,7 @@ angular.module('itaxi.factory', [])
 		            method: 'post',
 		            cache: false,
 		            headers: {'Content-Type': 'application/json'},
-		            url: 'http://localhost:1337/clients/session',
+		            url: 'http://' + ip + ':' + port + '/clients/session',
 		            data :{
 		            	user : user.user,
 		            	password: user.password
@@ -110,7 +114,7 @@ angular.module('itaxi.factory', [])
 		            method: 'GET',
 		            cache: false,
 		            headers: {'Content-Type': 'application/json'},
-		            url: 'http://localhost:1337/trips/' + localStorageService.get('sesion')._id,
+		            url: 'http://' + ip + ':' + port + '/trips/' + localStorageService.get('sesion')._id,
 		        })
 		        .then(function successCallback(response) {
 		            console.log(response);
@@ -138,7 +142,7 @@ angular.module('itaxi.factory', [])
 		        method: 'post',
 		        cache: false,
 		        headers: {'Content-Type': 'application/json'},
-		        url: 'http://localhost:1337/trips/' + localStorageService.get('sesion')._id,
+		        url: 'http://' + ip + ':' + port + '/trips/' + localStorageService.get('sesion')._id,
 		        data : {
 		        	longitudestart :trip.startPoint.longitudestart,
 		            latitudestart : trip.startPoint.latitudestart,
@@ -170,7 +174,7 @@ angular.module('itaxi.factory', [])
 		        method: 'post',
 		        cache: false,
 		        headers: {'Content-Type': 'application/json'},
-		        url: 'http://localhost:1337/trips/cash/' + global.uncashedTrip._id,
+		        url: 'http://' + ip + ':' + port + '/trips/cash/' + global.uncashedTrip._id,
 		        data : {
 		        	duration : 2
 		            }
@@ -207,7 +211,7 @@ angular.module('itaxi.factory', [])
 		        method: 'GET',
 		        cache: false,
 		        headers: {'Content-Type': 'application/json'},
-		        url: 'http://localhost:1337/trips/uncashed/' +localStorageService.get('sesion')._id,
+		        url: 'http://' + ip + ':' + port + '/trips/uncashed/' +localStorageService.get('sesion')._id,
 			})
 		        .then(function successCallback(response) {
 		        		angular.copy(response.data.trip, global.uncashedTrip);
@@ -236,7 +240,7 @@ angular.module('itaxi.factory', [])
 		            method: 'post',
 		            cache: false,
 		            headers: {'Content-Type': 'application/json'},
-		            url: 'http://localhost:1337/drivers',
+		            url: 'http://' + ip + ':' + port + '/drivers',
 		            data : {
 		            	name : driver.name + " " +driver.lastName,
 		            	user : driver.user,

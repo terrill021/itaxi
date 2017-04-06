@@ -5,6 +5,7 @@ angular.module('appAngular', ['ionic', 'ionic.cloud' ,'itaxi.services', 'itaxi.f
 	
 	.config(function ($stateProvider, $urlRouterProvider, localStorageServiceProvider, $ionicCloudProvider) {
 		
+		//alert(ip.ip)
 		$stateProvider
 		    .state('map', {
 		        url: '/map',

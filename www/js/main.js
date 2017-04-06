@@ -21,43 +21,7 @@ $(document).ready(function(){
         }   
     }); 
     
-    /*$('.btn-ExitSystem').on('click', function(e){
-        e.preventDefault();
-        swal({ 
-            title: "You want out of the system?",   
-            text: "The current session will be closed and will leave the system",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Yes",
-            animation: "slide-from-top",   
-            closeOnConfirm: false,
-            cancelButtonText: "Cancel"
-        }, function(){   
-            window.location='index.html'; 
-        });
-    }); 
-    $('.btn-Search').on('click', function(e){
-        e.preventDefault();
-        swal({   
-            title: "What direction are you looking for?",   
-            text: "Write where you want to go",   
-            type: "input",   
-            showCancelButton: true,   
-            closeOnConfirm: true,   
-            animation: "slide-from-top",   
-            inputPlaceholder: "Write here",
-            confirmButtonText: "Search",
-            cancelButtonText: "Cancel" 
-        }, function(inputValue){   
-            if (inputValue === false) return false;      
-            if (inputValue === "") {swal.showInputError("You must write something");     
-            return false   
-            }
-            addAddress(inputValue)
-            swal("Nice!", "You wrote: " + inputValue, "success"); 
-        });    
-    });*/
+    
     $('.btn-Notification').on('click', function(){
         var NotificationArea=$('.NotificationArea');
         if(NotificationArea.hasClass('NotificationArea-show')){
@@ -68,8 +32,8 @@ $(document).ready(function(){
     });     
 });
 (function($){
-    $(window).load(function(){
-        /*$(".NavLateral-content").mCustomScrollbar({
+    /*$(window).load(function(){
+        $(".NavLateral-content").mCustomScrollbar({
             theme:"light-thin",
             scrollbarPosition: "inside",
             autoHideScrollbar: true,
@@ -80,6 +44,6 @@ $(document).ready(function(){
             scrollbarPosition: "inside",
             autoHideScrollbar: true,
             scrollButtons:{ enable: true }
-        });*/
-    });
+        });
+    });*/
 })(jQuery);
