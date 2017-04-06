@@ -13,6 +13,10 @@ body{
     min-height: 100vh;
 
 }
+.container .row {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
 .full-width{
     margin: 0;
     padding: 0;

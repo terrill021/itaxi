@@ -12,7 +12,6 @@ angular.module('itaxi.factory', [])
 		$rootScope.drivers = false;
 		$rootScope.clients = false;
 
-
 	    global.buttonValue = "indeterminate";	   
 
 	    function errorCallback (){

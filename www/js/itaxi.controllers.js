@@ -60,6 +60,11 @@ angular.module('itaxi.controllers', [])
 	})
 	.controller('ctrlLogin', function (localStorageService, $rootScope, $scope, $state, global, swal) {
 	    
+	     /* 
+	     	$scope.$on('$ionicView.enter', function(e) {
+  			alert('etre a ctrlLogin')
+  			});
+		*/
 	    $scope.login = function(){
 	    	$rootScope.guardando = true;
 	    	if ($scope.user.type == 'client') {

@@ -8,36 +8,38 @@ angular.module('appAngular', ['ionic', 'ionic.cloud' ,'itaxi.services', 'itaxi.f
 		$stateProvider
 		    .state('map', {
 		        url: '/map',
-		        templateUrl: '../views/map.html',
+		        templateUrl: 'views/map.html',
 		        controller: 'ctrlMap'
 		    })
 		    .state('login', {
 		        url: '/login',
-		        templateUrl: "../views/login.html",
+		        templateUrl: "views/login.html",
 		        controller: 'ctrlLogin'
-		    })
+		    })		        
+
 			.state('trips', {
 		        url: '/trips',
-		        templateUrl: "../views/trips.html",
+		        templateUrl: "views/trips.html",
 		        controller: 'ctrlTrips'
 		    })
 		    .state('newTrip', {
 		        url: '/newTrip',
-		        templateUrl: "../views/newtrip.html",
+		        templateUrl: "views/newtrip.html",
 		        controller: 'ctrlNewTrip'
 		    })
 		    .state('newDriver', {
 		        url: '/trips/createDriver',
-		        templateUrl: "../views/createDriver.html",
+		        templateUrl: "views/createDriver.html",
 		        controller: 'ctrlNewDriver'
 		    })
 		    .state('cashTrip', {
 		        url: '/trips/cashTrip',
-		        templateUrl: "../views/cashTrip.html",
+		        templateUrl: "views/cashTrip.html",
 		        controller: 'ctrlCashTrip'
 		    });
 
-		    $urlRouterProvider.otherwise('login');
+		    
+		    $urlRouterProvider.otherwise('/login');
 
 		    localStorageServiceProvider
 		    .setPrefix('myApp')
