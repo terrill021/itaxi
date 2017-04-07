@@ -49,7 +49,11 @@ angular.module('itaxi.controllers', [])
 
 	    $scope.cashTrip = function(trip)  {
 	    	$rootScope.guardando = true;
-	    	global.cashTrip(trip);
+	    	if(global.cashTrip(trip))
+	    	{
+	    		alert('ok?')
+	    		$scope.trip = {};
+	    	}
 	    };
 
 	    $scope.$on('cloud:push:notification', function(event, data) {
@@ -79,11 +83,7 @@ angular.module('itaxi.controllers', [])
 	    	
 	    }
 	})
-	.controller('ctrlMenu', function (localStorageService,$rootScope, $scope, $state, global) {
-	    //if(!global.verificateSession()){return;} 
-	    alert('menu ctl')
-	    
-	})
+	
 	.controller('ctrlMap', function ($scope, $log, $timeout, $state,$rootScope, global, swal) {
 	   if(!global.verificateSession()){return;} 
 

@@ -163,6 +163,8 @@ angular.module('itaxi.factory', [])
 					    textColor : 'white',
 					    loaderBg: (response.data.error)?'#c60000':'#9EC600'  // To change the background
 						});
+		            trip = {};
+		            $state.go('trips');
 		      	}
 		      	,function errorCallback(response) {
 		        	errorCallback();
@@ -181,7 +183,7 @@ angular.module('itaxi.factory', [])
 		            }
 		        })
 		        .then(function successCallback(response) {
-		        swal.success("Message", response.data.message);
+		        	
 		            $.toast({
 					    heading: (response.data.error)? 'Error':'Success',
 					    text: response.data.message,
@@ -197,8 +199,9 @@ angular.module('itaxi.factory', [])
 		           if (response.data.error) {
 		           		return false;
 		           } else {
+		           		swal.success("Message", response.data.message);
 		           		global.uncashedTrip = {};
-		           		$state.go('cashTrip')
+						$state.go('cashTrip');
 		           		return true;		           
 		           	}
 		      	}
@@ -228,53 +231,14 @@ angular.module('itaxi.factory', [])
 					    loader: true,        // Change it to false to disable loader
 					    textColor : 'white',
 					    loaderBg: (response.data.error)?'#c60000':'#9EC600'  // To change the background
-						});
-		        		
+						});		        		
 		      	}
 		      	,function errorCallback(response) {
 		        	errorCallback();
 		    });
     	};
 
-		//Agregar conductor (es nesesario??)
-		global.addDriver = function(driver){
-    		http({
-		            method: 'post',
-		            cache: false,
-		            headers: {'Content-Type': 'application/json'},
-		            url: 'http://' + ip + ':' + port + '/drivers',
-		            data : {
-		            	name : driver.name + " " +driver.lastName,
-		            	user : driver.user,
-		            	password : driver.password,
-		            	email : driver.email,
-		            	phone : driver.phone
-		            }
-		        })
-		        .then(function successCallback(response) {
-		            
-		            $rootScope.cargando = false;
-          			              		
-              		localStorageService.set('sesion', response.data);
-              		if(response.data.usuario.tipo == 'Administrador'){
-                		$rootScope.administrador = true;
-            		}
-            		$state.go('map');
-              		global.visible = true; //se puede ver
-
-		            if (!response.data.err) {
-		               // Materialize.toast(response.data.msg, 3000, 'rounded blue');
-		                
-		            }
-		            else{
-		              //Materialize.toast(response.data.msg, 3000, 'rounded red');
-		          	}
-		      }
-		      ,function errorCallback(response) {
-		        // Materialize.toast("Error Callback", 3000, 'rounded red');
-		    });
-    	};
-
+		
     	//Validar que haya unsa sesión activa
     	global.verificateSession = function () {
 	
