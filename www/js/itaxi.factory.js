@@ -149,7 +149,9 @@ angular.module('itaxi.factory', [])
 		            latitudeend : trip.endPoint.latitudeend
 		            }
 		        })
-		        .then(function successCallback(response) {		
+		        .then(function successCallback(response) {
+
+		        	swal.success("Message", response.data.message)		
 		            $.toast({
 					    heading: (response.data.error)? 'Error':'Success',
 					    text: response.data.message,
@@ -178,7 +180,8 @@ angular.module('itaxi.factory', [])
 		        	duration : 2
 		            }
 		        })
-		        .then(function successCallback(response) {		
+		        .then(function successCallback(response) {
+		        swal.success("Message", response.data.message);
 		            $.toast({
 					    heading: (response.data.error)? 'Error':'Success',
 					    text: response.data.message,
