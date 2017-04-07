@@ -77,18 +77,16 @@ angular.module('appAngular', ['ionic', 'ionic.cloud' ,'itaxi.services', 'itaxi.f
 		      // from snapping when text inputs are focused. Ionic handles this internally for
 		      // a much nicer keyboard experience.
 		      cordova.plugins.Keyboard.disableScroll(true);
-		    }
 
-		    // then register for push notifications to receive unique token
-          $ionicPush.register({
-            canShowAlert: true,         //Can pushes show an alert on your screen?
-            canSetBadge: true,          //Can pushes update app icon badges?
-            canPlaySound: true,         //Can notifications play a sound?
-            canRunActionsOnWake: true,  //Can run actions outside the app,
-          	}).then(function(token) {
-            	alert(token)
-            	return $ionicPush.saveToken(token);
-          	});
+		      var push = new Ionic.Push({
+			    "debug": true
+			  });
+			 
+			  push.register(function(token) {
+			  	alert(token.token)
+			    console.log("Device token:",token.token);
+			  });
+		    }
 
 		    if(window.StatusBar) {
 		      StatusBar.styleDefault();

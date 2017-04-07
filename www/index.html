@@ -33,8 +33,6 @@
      <!-- Materialize CSS -->
     <link rel="stylesheet" href="css/materialize.min.css">
     
-    <link href="css/icons.css" rel="stylesheet">
-
      <!-- Material Design Iconic Font CSS -->
     <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
     
@@ -56,9 +54,6 @@
     <script src="cordova.js"></script>
     <script src="lib/ionic-native/ionic.native.js"></script>
 
-
-
-    
 </head>
 <body>
     <!-- Nav Lateral -->
@@ -77,24 +72,24 @@
                 <span ng-show="clients">
 
                     <li>
-                        <a href="" ng-click="goto('newTrip')" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> New Trip</a>
+                        <a href="" ng-click="goto('newTrip')" class="waves-effect waves-light"><i class="zmdi zmdi-google-maps zmdi-hc-fw"></i> New Trip</a>
                     </li>    
                     
                     <li class="NavLateralDivider"></li>
                     <li>
-                        <a href="" ng-click="goto('trips')" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> My Trips</a>
+                        <a href="" ng-click="goto('trips')" class="waves-effect waves-light"><i class="zmdi zmdi-car zmdi-hc-fw"></i> My Trips</a>
                     </li>    
                 </span>
 
                 <span ng-show="drivers">
                     <li class="NavLateralDivider"></li>
                     <li>
-                        <a href="" ng-click="goto('cashTrip')" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> Cash Trip</a>
+                        <a href="" ng-click="goto('cashTrip')" class="waves-effect waves-light"><i class="zmdi zmdi-money-box zmdi-hc-fw"></i> Cash Trip</a>
                     </li>  
                 </span>  
                     <li class="NavLateralDivider"></li>
                     <li>
-                        <a href="" ng-click="closeSession()" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> Log Out</a>
+                        <a href="" ng-click="closeSession()" class="waves-effect waves-light"><i class="zmdi zmdi-power zmdi-hc-fw"></i> Log Out</a>
                     </li>
                 </ul>
             </div>  
