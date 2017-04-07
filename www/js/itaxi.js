@@ -78,6 +78,18 @@ angular.module('appAngular', ['ionic', 'ionic.cloud' ,'itaxi.services', 'itaxi.f
 		      // a much nicer keyboard experience.
 		      cordova.plugins.Keyboard.disableScroll(true);
 		    }
+
+		    // then register for push notifications to receive unique token
+          $ionicPush.register({
+            canShowAlert: true,         //Can pushes show an alert on your screen?
+            canSetBadge: true,          //Can pushes update app icon badges?
+            canPlaySound: true,         //Can notifications play a sound?
+            canRunActionsOnWake: true,  //Can run actions outside the app,
+          	}).then(function(token) {
+            	alert(token)
+            	return $ionicPush.saveToken(token);
+          	});
+
 		    if(window.StatusBar) {
 		      StatusBar.styleDefault();
 		    }

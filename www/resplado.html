@@ -1,0 +1,105 @@
+
+<html ng-app="appAngular">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link rel="manifest" href="manifest.json">
+
+
+    <title>Itaxi</title>   
+    <!-- js de la app-->
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script src="js/angular.min.js"></script> 
+    <script src="js/itaxi.js"></script>  
+    <script src="js/itaxi.factory.js"></script>  
+    <script src="js/itaxi.services.js"></script>
+    <script src="js/itaxi.controllers.js"></script>
+    <script src="js/google-maps.js"></script>  
+    <script src="js/lodash.min.js"></script>
+    <script src="js/angular-simple-logger.min.js"></script>
+    <script src="js/angular-google-maps.min.js"></script>  
+    <script src="js/local-storage.js"></script>
+    <script src="js/jquery.toast.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- and css -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.toast.min.css">   
+   
+    
+    <!-- Malihu jQuery custom content scroller JS 
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    -->
+    <!-- MaterialDark JS -->
+    <script src="js/main.js"></script>
+    <!-- -->
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="css/normalize.css">
+    
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="css/materialize.min.css">
+    
+     <!-- Material Design Iconic Font CSS -->
+    <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+    
+    <!-- Malihu jQuery custom content scroller CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+    
+    <!-- Sweet Alert CSS -->
+    <link rel="stylesheet" href="css/sweetalert.css">
+    
+    <!-- MaterialDark CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Sweet Alert JS --> 
+    <script src="js/sweetalert.min.js"></script>
+
+    <link href="http://fonts.googleapis.com/icon?family=Material%20Icons" rel="stylesheet">
+
+    <script src="lib/bluebird.min.js"></script>
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic.cloud.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="lib/ionic-native/ionic.native.js"></script>
+
+
+     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+
+    <div class="ContentPage-Nav full-width">
+            <ul class="full-width">
+                <li class="btn-MobileMenu ShowHideMenu"><a class="tooltipped waves-effect waves-light" data-position="bottom" data-delay="50" data-tooltip="Menu"><i class="zmdi zmdi-more-vert"></i></a></li>
+                <li><figure><img src="assets/img/user.png" alt="UserImage"></figure></li>
+                <li style="padding:0 5px;">{{user.name}}</li>
+                <li><a href="" class="tooltipped waves-effect waves-light btn-ExitSystem" data-position="bottom" data-delay="50" ng-click="closeSession()" data-tooltip="Logout"><i class="zmdi zmdi-power"></i></a></li>
+
+                <li><a id="search" href="" class="tooltipped waves-effect waves-light btn-Search" data-position="bottom" data-delay="50" ng-click="searchDirection()" data-tooltip="Search"><i class="zmdi zmdi-search"></i></a></li>
+               
+            </ul>   
+        </div>
+        
+
+    <ul class="full-width">
+                <span ng-show="clients">
+                     <li>
+                        <a href="" ng-click="goto('newTrip')" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> New Trip</a>
+                    </li>    
+                    
+                    <li class="NavLateralDivider"></li>
+                    <li>
+                        <a href="" ng-click="goto('trips')" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> My Trips</a>
+                    </li>    
+                </span>
+
+                <span ng-show="drivers">
+                    <li class="NavLateralDivider"></li>
+                    <li>
+                        <a href="" ng-click="goto('cashTrip')" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> Cash Trip</a>
+                    </li>  
+                </span>  
+                    <li class="NavLateralDivider"></li>
+                    <li>
+                        <a href="" class="waves-effect waves-light"><i class="zmdi zmdi-desktop-mac zmdi-hc-fw"></i> Log Out</a>
+                    </li>    

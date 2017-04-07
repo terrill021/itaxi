@@ -8,15 +8,6 @@ body, html{
     width: 100%;
     height: 100%;
     color: #333;
-    
-}
-body{
-    min-height: 100vh;
-
-}
-.container .row {
-    margin-left: -0.75rem;
-    margin-right: -0.75rem;
 }
 .full-width{
     margin: 0;
@@ -283,11 +274,9 @@ body{
 /*====== Pie de página*/
 .footer-MaterialDark{
     background-color: #263238;
+    padding-top: 20px;
+    margin-top: 20px;
     color: #fff;
-    padding-left: 301px;
-    padding-right: 0px;
-    display: flex;
-    flex-direction: flex-end;
 }
 .footer-copyright{
     height: 50px;

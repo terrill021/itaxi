@@ -1,43 +1,45 @@
 <!-- Simple Textfield -->
-<div class="container">
-<div class="container">
+<section class="ContentPage full-width  center-align" style="top: 56px;">
+
+
 <div class="container">
   <div class="row">
     <h4 class="col s12">Request a ride</h4>
   </div>
     
+
     <div class="row center-align">
-      <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'pick up location')"><i class="left"><img src="assets/img/flag.png" class="responsive-img"></i>pick up location</a>
+      <a class="waves-effect waves-light btn-large col s8 offset-s2" ng-click="goto('map', 'pick up location')"><i class="left"><img src="assets/img/flag.png" class="responsive-img"></i>pick up location</a>
     </div>
 
-      <div class="row">
-        <a class="waves-effect waves-light btn-large col s6" ng-click="goto('map', 'destination')"><i class="right"><img src="assets/img/flag.png" class="responsive-img">
+      <div class="row center-align">
+        <a class="waves-effect waves-light btn-large col s8 offset-s2" ng-click="goto('map', 'destination')"><i class="right"><img src="assets/img/flag.png" class="responsive-img">
         </i>destination</a>
-    </div>
+      </div>
       
-  <div class="row">     
-       <button class="btn waves-effect waves-light col s6" type="submit" name="action" ng-click="createTrip()">Get A Car
+      <div class="row center-align">     
+       <button class="btn waves-effect waves-light col s8 offset-s2" type="submit" name="action" ng-click="createTrip()">Get A Car
          <i class="material-icons right">send</i>
        </button>    
-    </div>  
+      </div>  
   
   <br />
   <br />    
   
   <div class="container">
     <div class="row">
-    <b class="col s10">Pick up location: (*required)</b> 
+    <b class="col s11">Pick up location: (*required)</b> 
     
       <img ng-show="!(validateEmpty(trip.startPoint))" src="assets/img/Ok-icon.png" class="responsive-img">
     </div>
 
     <div class="row">
-      <b class="col s10">Destination: (optional) </b> 
+      <b class="col s11">Destination: (optional) </b> 
     
       <img ng-show="(!validateEmpty(trip.endPoint))" src="assets/img/Ok-icon.png" class="responsive-imgcenter-box">
     </div>
   </div>
 
- </div>
- </div>
+
 </div>
+</section>

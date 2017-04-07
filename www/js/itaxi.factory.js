@@ -29,7 +29,7 @@ angular.module('itaxi.factory', [])
 					    loader: true,        // Change it to false to disable loader
 					    textColor : 'white',
 					    loaderBg: '#c60000'  // To change the background
-						});
+					});
     	}
 
 	    $rootScope.goto = function(to, desc){

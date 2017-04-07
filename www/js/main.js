@@ -23,7 +23,7 @@ $(document).ready(function(){
          
 });
 (function($){
-    /*$(window).load(function(){
+    $(window).load(function(){
         $(".NavLateral-content").mCustomScrollbar({
             theme:"light-thin",
             scrollbarPosition: "inside",
@@ -36,5 +36,5 @@ $(document).ready(function(){
             autoHideScrollbar: true,
             scrollButtons:{ enable: true }
         });
-    });*/
+    });
 })(jQuery);
