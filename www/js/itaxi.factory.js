@@ -63,7 +63,7 @@ angular.module('itaxi.factory', [])
           			}
 		      }
 		      ,function errorCallback(response) {
-		      	errorCallback();
+		      	swal.error("Error", "No se recibio respuesta del servidor")
 		    });
     	};
 
@@ -104,7 +104,7 @@ angular.module('itaxi.factory', [])
           			}
 		      }
 		      ,function errorCallback(response) {
-		      	errorCallback();
+		      	swal.error("Error", "No se recibio respuesta del servidor")
 		    });
     	};
 
@@ -132,7 +132,7 @@ angular.module('itaxi.factory', [])
 						});		            
 		      	}
 		      	,function errorCallback(response) {
-		      		errorCallback();
+		      		swal.error("Error", "No se recibio respuesta del servidor")
 		    });
     	};
 
@@ -168,7 +168,7 @@ angular.module('itaxi.factory', [])
 		            $state.go('trips');
 		      	}
 		      	,function errorCallback(response) {
-		        	errorCallback();
+		        	swal.error("Error", "No se recibio respuesta del servidor")
 		    });
     	};
     	
@@ -207,7 +207,7 @@ angular.module('itaxi.factory', [])
 		           	}
 		      	}
 		      	,function errorCallback(response) {
-		       		errorCallback();
+		       		swal.error("Error", "No se recibio respuesta del servidor")
 		    });
     	};
 
@@ -235,7 +235,7 @@ angular.module('itaxi.factory', [])
 						});		        		
 		      	}
 		      	,function errorCallback(response) {
-		        	errorCallback();
+		        	swal.error("Error", "No se recibio respuesta del servidor")
 		    });
     	};
 
@@ -292,7 +292,7 @@ angular.module('itaxi.factory', [])
 	                invokeSuccessCallback(successCallback, marker);
 	            });
 	        } else {
-	            errorCallback();
+	            swal.error("Error", "No se recibio respuesta del servidor")
 	        }
     	}
 
