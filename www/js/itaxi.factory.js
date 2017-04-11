@@ -4,7 +4,7 @@ var port = '1337';
 
 angular.module('itaxi.factory', [])
 
-.factory('global', function ( $state, $http, $rootScope, localStorageService, swal, $ionicPush) {
+.factory('global', function ( $state, $http, $rootScope, localStorageService, swal) {
 	    var global = {};
 	    $rootScope.guardando = false;
 	    global.startPoint = {};
@@ -89,16 +89,7 @@ angular.module('itaxi.factory', [])
           				$rootScope.user = response.data.user;
           				$rootScope.clients = true;
           				localStorageService.set('sesion', response.data.user);
-          				//Registrar token
-          				$ionicPush.register().then(function(t) {
-          					alert(t);
-          					swal.success("token", t.token);
-						  	return $ionicPush.saveToken(t,{ignore_user : true} );
-						}).then(function(t) {
-							alert(t.token)
-							console.log('Token saved:', t.token);
-						});
-          				//
+          				
           				swal.success("Welcome", "press ok to close")
           				$state.go('newTrip');
           			}

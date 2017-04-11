@@ -1,9 +1,9 @@
 /* Create the sweetAlert Service singleton */
 
 
-angular.module('appAngular', ['ionic', 'ionic.cloud' ,'itaxi.services', 'itaxi.factory', 'itaxi.controllers', 'ui.router','LocalStorageModule', 'uiGmapgoogle-maps'])
+angular.module('appAngular', ['ionic', 'itaxi.services', 'itaxi.factory', 'itaxi.controllers', 'ui.router','LocalStorageModule', 'uiGmapgoogle-maps'])
 	
-	.config(function ($stateProvider, $urlRouterProvider, localStorageServiceProvider, $ionicCloudProvider) {
+	.config(function ($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
 		
 		//alert(ip.ip)
 		$stateProvider
@@ -46,24 +46,7 @@ angular.module('appAngular', ['ionic', 'ionic.cloud' ,'itaxi.services', 'itaxi.f
 		    .setPrefix('myApp')
 		    .setStorageType('sessionStorage')
 		    .setNotify(true, true);
-
-		    $ionicCloudProvider.init({
-			    "core": {
-			      "app_id": "9c8249b8"
-			    },
-			    "push": {
-			     "sender_id": "347412374609",
-			     "pluginConfig": {
-			        "ios": {
-			          "badge": true,
-			          "sound": true
-			        },
-			        "android": {
-			          "iconColor": "#343434"
-			        }
-			      }
-			    }
-			 });
+		    
 	})
 	
 	.run(function($ionicPlatform) {
@@ -78,14 +61,7 @@ angular.module('appAngular', ['ionic', 'ionic.cloud' ,'itaxi.services', 'itaxi.f
 		      // a much nicer keyboard experience.
 		      cordova.plugins.Keyboard.disableScroll(true);
 
-		      var push = new Ionic.Push({
-			    "debug": true
-			  });
-			 
-			  push.register(function(token) {
-			  	alert(token.token)
-			    console.log("Device token:",token.token);
-			  });
+		      
 		    }
 
 		    if(window.StatusBar) {

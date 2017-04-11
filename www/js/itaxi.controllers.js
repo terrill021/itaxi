@@ -13,11 +13,7 @@ angular.module('itaxi.controllers', [])
 	    
 	    if(!global.verificateSession()){return;}  
 	    
-	    $scope.$on('cloud:push:notification', function(event, data) {
-		var msg = data.message;
-		  alert(msg.title + ': ' + msg.text);
-		});
-
+	    
 	    $scope.trip = {};
 	    $scope.trip.startPoint = global.startPoint;
 	    $scope.trip.endPoint = global.endPoint;
