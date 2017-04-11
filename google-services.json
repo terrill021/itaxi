@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "347412374609",
-    "firebase_url": "https://itaxi-f2f9a.firebaseio.com",
-    "project_id": "itaxi-f2f9a",
-    "storage_bucket": "itaxi-f2f9a.appspot.com"
+    "project_number": "938058551807",
+    "firebase_url": "https://itaxiii-9501e.firebaseio.com",
+    "project_id": "itaxiii-9501e",
+    "storage_bucket": "itaxiii-9501e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:347412374609:android:ce85a640e7ce26c3",
+        "mobilesdk_app_id": "1:938058551807:android:709c2ff1076212de",
         "android_client_info": {
-          "package_name": "com.open"
+          "package_name": "com.ionicframework.itaxi5481783"
         }
       },
       "oauth_client": [
         {
-          "client_id": "347412374609-v2sk5c2p5fjhom4aoeo0vhk43t1fh9tn.apps.googleusercontent.com",
+          "client_id": "938058551807-2c6ok1pemucf2ls3elo0cenlc56feiuu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAUduOMVwLJftJGrJjQc1lt6tT7u9oP5YE"
+          "current_key": "AIzaSyBGL_UpQunPu5cDTShvcAeSmiul0M8ZxDQ"
         }
       ],
       "services": {
