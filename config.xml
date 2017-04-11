@@ -76,8 +76,8 @@
         <icon height="159" src="resources\wp8\icon\Background.png" width="159" />
         <splash height="1280" src="resources\wp8\splash\SplashScreenImage.png" width="768" />
     </platform>
-    
     <plugin name="cordova-plugin-geolocation" spec="~2.4.2" />
     <icon src="resources\android\icon\drawable-xhdpi-icon.png" />
     <plugin name="cordova-plugin-device" spec="~1.1.5" />
+   
 </widget>
